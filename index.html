@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script defer src="script.js"></script>
+  </head>
+  <script>
+    const unsortedArray = [1, 8, 5, 3, 2, 10, 14, 9, 123, 124, 10, 23, 12, 23];
+    console.log(unsortedArray);
+
+    function splitArray(rawArray) {
+      if (rawArray.length === 0) return "Please provide a non empty array!";
+      if (rawArray.length === 1) {
+        return rawArray;
+      }
+
+      const mid = Math.floor(rawArray.length / 2);
+
+      const left = rawArray.slice(0, mid);
+      const right = rawArray.slice(mid, rawArray.length);
+
+      return merge(splitArray(left), splitArray(right));
+    }
+
+    function merge(left, right) {
+      result = [];
+
+      let iL = 0;
+      let iR = 0;
+      while (iL < left.length && iR < right.length) {
+        left[iL] < right[iR]
+          ? result.push(left[iL++])
+          : result.push(right[iR++]);
+      }
+
+      while (iL < left.length) {
+        result.push(left[iL]);
+        iL++;
+      }
+
+      while (iR < right.length) {
+        result.push(right[iR]);
+        iR++;
+      }
+      return result;
+    }
+  </script>
+  <body>
+    <button class="mergesort">merge</button>
+
+    <button class="unmergesort">unmerge</button>
+
+    <div class="unsorted"></div>
+
+    <script>
+      const text = document.querySelector(".unsorted");
+      text.innerHTML = unsortedArray;
+      const button1 = document.querySelector(".mergesort");
+      button1.addEventListener("click", () => {
+        text.innerHTML = splitArray(unsortedArray);
+      });
+      const button2 = document.querySelector(".unmergesort");
+      button2.addEventListener("click", () => {
+        text.innerHTML = unsortedArray;
+      });
+    </script>
+  </body>
+</html>
